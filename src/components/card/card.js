@@ -1,14 +1,17 @@
 import React from "react";
+import {Link} from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 const Card = () => {
+     
     return (
         <article className="card">
               <div className="card__form">
                 <div className="card__inner">
                   <div className="card__control">
-                    <button type="button" className="card__btn card__btn--edit">
+                    <Link to={AppRoute.EVENT} type="button" className="card__btn card__btn--edit">
                       Редактировать
-                    </button>
+                    </Link>
                     <button type="button" className="card__btn card__btn--archive">
                       В архив
                     </button>

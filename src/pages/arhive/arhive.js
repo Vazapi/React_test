@@ -5,11 +5,12 @@ import { AppRoute } from "../../const";
 
 
 const Arhive = () => {
+    
     return(
         <>
-            <Header mode={AppRoute.ARHIVE}/>
+            <Header  />
             <main className="main__wrapper">
-                <Board mode={true}/>
+                <Board/>
             </main>
         </>
     )

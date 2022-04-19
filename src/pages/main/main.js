@@ -6,13 +6,14 @@ import { AppRoute } from "../../const";
 
 
 const Main = () => {
-
+    
+    
     return(
         <>
-            <Header mode={AppRoute.MAIN}/>
+            <Header  />
             <main className="main__wrapper">
-                <Filter mode={AppRoute.EVENT=true}/>
-                <Board mode={true}/>
+                <Filter />
+                <Board />
             </main>
         </>
         

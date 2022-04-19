@@ -3,20 +3,25 @@ import Card from "../card/card";
 import BoardFilter from "../boardFilter/boardFilter";
 import LoadMore from "../loadMore/loadMore";
 import NoEvent from "../noEvents/noEvent";
-import { AppRoute } from "../../const";
-const Board = ({mode}) => {
-    const hasEvent = mode;
-    console.log(hasEvent)
+
+const Board = () => {
+    
     return (
         <section className="board">
-            <BoardFilter/>
+            {!(window.location.pathname == '/arhive')? <BoardFilter/> 
+            : null}
+            
             <div className="board__events">
-                 {hasEvent? <Card/> 
-                 :
-                 <NoEvent/>}
+                 <Card/> 
+                 <Card/>
+                 <Card/>
+                 <Card/>
+
+                 
+                {/* //  <NoEvent/> */}
             </div>
-            {hasEvent? null 
-            :<LoadMore/>}
+            
+            <LoadMore/>
             
         </section>
     );

@@ -1,8 +1,9 @@
 import React from "react";
 import { AppRoute } from "../../const";
+import {Link} from 'react-router-dom'
 
-const Filter = ({mode}) => {
-const buttonOn = mode;
+const Filter = () => {
+
     return (
         <>
             <section className="main__filter filter">
@@ -54,13 +55,13 @@ const buttonOn = mode;
                 <label htmlFor="filter__favorite" className="filter__label"
                     >Избранное <span className="filter__favorite-count count">1</span></label
                 >
-                {buttonOn? 
-                    <button
+                {window.location.pathname == '/' ?
+                    <Link  to={AppRoute.ADD}
                     
                     name="control"
                     className='btn-add'
                     
-                    >Создать</button>
+                    >Создать</Link>
                   :null }
                 
         </section> 

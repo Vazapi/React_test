@@ -1,20 +1,19 @@
 import React from "react";
 import Header from "../../components/header/header";
 import Filter from "../../components/filter/filter";
-import AddEvent from "../../components/addEvent/addEvent";
+import Event from "../../components/event/event";
 import { AppRoute } from "../../const";
-import EditEvent from "../../components/editEvent/editEvent";
 
 
-const Form = () => {
+const Form = (props) => {
+    
     return (
         <>
-        <Header/>
+        <Header />
         <main className="main__wrapper">
-                <Filter mode={AppRoute.EVENT=false}/>
+                <Filter />
                 <section className="board">
-                {/* <AddEvent/> */}
-                <EditEvent/>
+                <Event props={props}/>
                 </section>
                 
                 

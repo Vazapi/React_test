@@ -2,13 +2,13 @@ import React from "react";
 
 
 
-const AddEvent = () => {
-
+const Event = ({props}) => {
+  const {id} = props.match.params;
     return (
         <form className="board__form">
-            <h2 className="board__title">Добавление события</h2>
+            <h2 className="board__title">{id? `Редактирование события` : `Добавление события`}</h2>
             <fieldset className="board__field board__field--theme">
-              <label for="theme" className="board__label board__label--theme">Тема:</label>
+              <label htmlFor="theme" className="board__label board__label--theme">Тема:</label>
               <textarea
                 type="text"
                 className="board__input board__input--theme"
@@ -17,7 +17,7 @@ const AddEvent = () => {
               ></textarea>
             </fieldset>
             <fieldset className="board__field board__field--comment">
-              <label for="comment" className="board__label board__label--comment">Комментарий:</label>
+              <label htmlFor="comment" className="board__label board__label--comment">Комментарий:</label>
               <textarea
                 type="text"
                 className="board__input board__input--comment"
@@ -26,7 +26,7 @@ const AddEvent = () => {
               ></textarea>
             </fieldset>
             <fieldset className="board__field board__field--date">
-              <label for="date" className="board__label board__label--date">Дата:</label>
+              <label htmlFor="date" className="board__label board__label--date">Дата:</label>
               <input
                 type="datetime-local"
                 className="board__input board__input--date"
@@ -34,11 +34,12 @@ const AddEvent = () => {
               />
             </fieldset>
             <div className="btns">
-              <button type="submit" className="btn-submit">Добавить</button>
+              <button type="submit" className="btn-submit">{id? `Сохранить` : `Добавить`}</button>
               <button type="reset" className="btn-reset">Очистить</button>
             </div>
           </form>
     )
+    
 }
 
-export default AddEvent;
+export default Event;
