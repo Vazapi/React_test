@@ -4,18 +4,16 @@ import BoardFilter from "../boardFilter/boardFilter";
 import LoadMore from "../loadMore/loadMore";
 import NoEvent from "../noEvents/noEvent";
 
-const Board = () => {
+const Board = ({events}) => {
     
     return (
         <section className="board">
-            {!(window.location.pathname == '/arhive')? <BoardFilter/> 
-            : null}
+            {!(window.location.pathname === '/arhive') && <BoardFilter/>}
             
             <div className="board__events">
-                 <Card/> 
-                 <Card/>
-                 <Card/>
-                 <Card/>
+                {events.map(event => <Card {...event} key={event._id}/>)}
+                 
+                 
 
                  
                 {/* //  <NoEvent/> */}

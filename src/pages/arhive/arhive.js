@@ -4,13 +4,14 @@ import Board from "../../components/board/board";
 import { AppRoute } from "../../const";
 
 
-const Arhive = () => {
+const Arhive = ({events}) => {
     
+    const archiveEvents =  events.filter( x => x.archive )
     return(
         <>
             <Header  />
             <main className="main__wrapper">
-                <Board/>
+                <Board events={archiveEvents}/>
             </main>
         </>
     )

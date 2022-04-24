@@ -5,7 +5,7 @@ import Event from "../../components/event/event";
 import { AppRoute } from "../../const";
 
 
-const Form = (props) => {
+const Form = ({events}) => {
     
     return (
         <>
@@ -13,7 +13,7 @@ const Form = (props) => {
         <main className="main__wrapper">
                 <Filter />
                 <section className="board">
-                <Event props={props}/>
+                <Event events={events}/>
                 </section>
                 
                 

@@ -5,7 +5,7 @@ import Header from "../../components/header/header";
 import { AppRoute } from "../../const";
 
 
-const Main = () => {
+const Main = ({events}) => {
     
     
     return(
@@ -13,7 +13,7 @@ const Main = () => {
             <Header  />
             <main className="main__wrapper">
                 <Filter />
-                <Board />
+                <Board events={events}/>
             </main>
         </>
         
