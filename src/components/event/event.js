@@ -2,18 +2,21 @@ import React from "react";
 import { useState } from "react";
 import moment from 'moment';
 import 'moment/locale/ru'
+import { useParams } from "react-router-dom";
+
+
 
 const Event = ({events}) => {
-  
-    const path = window.location.pathname.slice(7)
-    const itemEvent = events.filter(x => x._id.includes(path))
-    
-    const [{_id, theme, comment, date}] = itemEvent
+    const {data} = events
 
-    let formatDate = moment(date).format('YYYY-MM-DDThh:mm').toString();   
-    
-    console.log(formatDate)
-  
+    const url = useParams();
+    let {id} = url;
+
+    const [itemEvent] = data.filter(x => x._id.includes(id)) // ищем нужный объект по айди
+
+    let formatDate = ''
+    itemEvent? formatDate = moment(itemEvent.date).format('YYYY-MM-DDThh:mm').toString() : formatDate = '';
+       
   
   // объявляем хук для формы
   const [form, setForm] = useState({
@@ -27,20 +30,32 @@ const Event = ({events}) => {
     setForm({
       ...form,
       [name]: value})
-    
-  }
-  // console.log(form)  
-  // изменяем состояние через хук по сабмиту
-  const handleSubmit = (e) => {
-    e.preventDefault()
     console.log(form)
+  }
+  
+  // изменяем состояние через хук по сабмиту
+
+  
+  const handleSubmit = (e) => {
+    
+    e.preventDefault();
+   /// Если нет айдишника, создаем новую карту
+    window.location.pathname ==='/event' && events.addEvent(form)
+
+    // Если есть , то редактируем эту.
+    window.location.pathname !=='/event' && events.editEvent({
+      ...form,
+      id: url,
+      favorite: !itemEvent.favorite
+    })
+    window.history.back() 
   }
 
     return (
         <form 
         onSubmit={handleSubmit} 
         className="board__form">
-            <h2 className="board__title">{_id? `Редактирование события` : `Добавление события`}</h2>
+            <h2 className="board__title">{window.location.pathname!=='/event'? `Редактирование события` : `Добавление события`}</h2>
             <fieldset className="board__field board__field--theme">
               <label htmlFor="theme" className="board__label board__label--theme">Тема:</label>
               <textarea
@@ -51,7 +66,7 @@ const Event = ({events}) => {
                 
                 onChange={handleFieldChange}
               >
-              {path===''? null: theme}
+              {itemEvent? itemEvent.theme: null}
               </textarea>
             </fieldset>
             <fieldset className="board__field board__field--comment">
@@ -63,7 +78,7 @@ const Event = ({events}) => {
                 required
                 onChange={handleFieldChange}
               >
-                {path===''? null : comment}
+                {itemEvent? itemEvent.comment : null}
               </textarea>
             </fieldset>
             <fieldset className="board__field board__field--date">
@@ -73,11 +88,11 @@ const Event = ({events}) => {
                 className="board__input board__input--date"
                 name="date"
                 onChange={handleFieldChange}
-                value={path===''? null : formatDate}
+                value={itemEvent? formatDate : null}
               />
             </fieldset>
             <div className="btns">
-              <button type="submit" className="btn-submit">{_id? `Сохранить` : `Добавить`}</button>
+              <button type="submit" className="btn-submit">{window.location.pathname!=='/event'? `Сохранить` : `Добавить`}</button>
               <button type="reset" className="btn-reset">Очистить</button>
             </div>
           </form>

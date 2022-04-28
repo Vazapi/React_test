@@ -12,7 +12,7 @@ const Filter = () => {
                     id="filter__all"
                     className="filter__input visually-hidden"
                     name="filter"
-                    checked
+                    // checked
                 />
                 <label htmlFor="filter__all" className="filter__label">
                     Все <span className="filter__all-count count">13</span></label
