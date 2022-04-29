@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import moment from 'moment';
 import 'moment/locale/ru'
-import { useParams } from "react-router-dom";
+import { useParams , useLocation} from "react-router-dom";
 
 
 
@@ -11,9 +11,10 @@ const Event = ({events}) => {
 
     const url = useParams();
     let {id} = url;
+    
 
     const [itemEvent] = data.filter(x => x._id.includes(id)) // ищем нужный объект по айди
-
+    
     let formatDate = ''
     itemEvent? formatDate = moment(itemEvent.date).format('YYYY-MM-DDThh:mm').toString() : formatDate = '';
        
@@ -30,7 +31,7 @@ const Event = ({events}) => {
     setForm({
       ...form,
       [name]: value})
-    console.log(form)
+    // console.log(form)
   }
   
   // изменяем состояние через хук по сабмиту
@@ -40,10 +41,9 @@ const Event = ({events}) => {
     
     e.preventDefault();
    /// Если нет айдишника, создаем новую карту
-    window.location.pathname ==='/event' && events.addEvent(form)
-
+    id === undefined && events.addEvent(form)
     // Если есть , то редактируем эту.
-    window.location.pathname !=='/event' && events.editEvent({
+    id !=='' && itemEvent && events.editEvent({
       ...form,
       id: url,
       favorite: !itemEvent.favorite
@@ -66,7 +66,7 @@ const Event = ({events}) => {
                 
                 onChange={handleFieldChange}
               >
-              {itemEvent? itemEvent.theme: null}
+              {itemEvent && itemEvent.theme}
               </textarea>
             </fieldset>
             <fieldset className="board__field board__field--comment">
@@ -78,7 +78,7 @@ const Event = ({events}) => {
                 required
                 onChange={handleFieldChange}
               >
-                {itemEvent? itemEvent.comment : null}
+                {itemEvent && itemEvent.comment}
               </textarea>
             </fieldset>
             <fieldset className="board__field board__field--date">
@@ -88,11 +88,11 @@ const Event = ({events}) => {
                 className="board__input board__input--date"
                 name="date"
                 onChange={handleFieldChange}
-                value={itemEvent? formatDate : null}
+                value={itemEvent && formatDate}
               />
             </fieldset>
             <div className="btns">
-              <button type="submit" className="btn-submit">{window.location.pathname!=='/event'? `Сохранить` : `Добавить`}</button>
+              <button type="submit" className="btn-submit">{id === undefined && `Сохранить` || `Добавить`}</button>
               <button type="reset" className="btn-reset">Очистить</button>
             </div>
           </form>

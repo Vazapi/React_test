@@ -4,21 +4,30 @@ import BoardFilter from "../boardFilter/boardFilter";
 import LoadMore from "../loadMore/loadMore";
 import NoEvent from "../noEvents/noEvent";
 import ClearBtn from "../clearBtn/clearBtn";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 const Board = ({events}) => {
-    // console.log(events)
+    const {pathname} = useLocation();
+    
+    const [step, setStep] = useState(10);
+
+    const handleLoadMore = () => {
+        events.length >= step ? setStep(step + 3): setStep(events.length);
+    }
+
     return (
         <section className="board">
-            {!(window.location.pathname === '/archive') && <BoardFilter/>}
+            {!(pathname === '/archive') && <BoardFilter />}
             
             <div className="board__events">
-                {events.map(event => <Card {...event} key={event._id}/>)}
+                {events.slice(0, step).map(event => <Card {...event} key={event._id}/>)}
                  
               
                 {/* //  <NoEvent/> */}
                 
             </div>
             
-            <LoadMore/>
+            <LoadMore prop={handleLoadMore}/>
             
         </section>
     );

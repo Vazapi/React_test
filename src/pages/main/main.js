@@ -8,7 +8,7 @@ import {observer} from 'mobx-react-lite';
 
 const Main = observer(() => {
     
-    const { notArchiveData } = events;
+    const { filtredData } = events;
 
     // console.log(notArchiveData, events)
     return(
@@ -16,7 +16,7 @@ const Main = observer(() => {
             <Header  />
             <main className="main__wrapper">
                 <Filter />
-                <Board events={notArchiveData}/>
+                <Board events={filtredData}/>
             </main>
         </>
         

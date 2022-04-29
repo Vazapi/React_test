@@ -5,7 +5,7 @@ import 'moment/locale/ru'
 import './card.css' ;
 
 import {events} from '../../store/index'
-// import { event } from "../../store/index";
+
 
 const Card = ({_id, theme, comment, date, favorite, archive}) => {
 
@@ -29,7 +29,7 @@ const Card = ({_id, theme, comment, date, favorite, archive}) => {
   }
   const handleToFavorite = (evt) => {
     evt.preventDefault();
-    console.log(evt.target)
+    
     events.editEvent({
       id: _id, 
       theme, 
